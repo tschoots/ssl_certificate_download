@@ -5,3 +5,30 @@ apk --update add openssl-dev
 
 apk --update add openssl
 openssl s_client -showcerts -connect 192.168.2.14:8443 </dev/null
+
+#put the following in a prr.cer file
+-----BEGIN CERTIFICATE-----
+MIICfzCCAegCCQDh7GM2As4HnzANBgkqhkiG9w0BAQUFADCBgzELMAkGA1UEBhMC
+TkwxFTATBgNVBAgMDFp1aWQgSG9sbGFuZDERMA8GA1UEBwwIRGVuIEhhYWcxFjAU
+BgNVBAoMDU1haWFzdHJhIEIuVi4xETAPBgNVBAsMCHJlc2VhcmNoMR8wHQYJKoZI
+hvcNAQkBFhB0b25AbWFpYXN0cmEuY29tMB4XDTE2MDcyOTE0NDczMVoXDTE3MDcy
+OTE0NDczMVowgYMxCzAJBgNVBAYTAk5MMRUwEwYDVQQIDAxadWlkIEhvbGxhbmQx
+ETAPBgNVBAcMCERlbiBIYWFnMRYwFAYDVQQKDA1NYWlhc3RyYSBCLlYuMREwDwYD
+VQQLDAhyZXNlYXJjaDEfMB0GCSqGSIb3DQEJARYQdG9uQG1haWFzdHJhLmNvbTCB
+nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAw2hD1/uOyvmqoBtLnsACNPZJqNVu
+3fRs9GBbGDpCy47ZCBck+9d+PWFgKhbYJJBjGu6kKSvSp7uDZbzvA7Mlr8FIcQba
+1Bb6JtD0+o8A6ak7XcyLJ/u7Y5gv4xtEXVfaPt0AyNgp2o4CIzMHWBdkYqyezARd
+hU2+Tfp8SqQbJlcCAwEAATANBgkqhkiG9w0BAQUFAAOBgQAmTRMGDx9THubhXedg
+YxMEea0ky1c2cDV7tfhxwg4gKD6Ugfs54LbkoDDqIAO4qE/JQbNShKcUoXAb5KQm
+M7tkHDblNS0tQBt8livUXsUEMfDvGf6rDHpSW3vkXRTyDvtKGwuvU5zDfmAqBurJ
+ZrRBiNH3GQ64L6cXZio7gcPbQA==
+-----END CERTIFICATE-----
+
+
+keytool -import -alias blackduck -keystore jssecacerts -trustcacerts -file prr.cer
+
+ mv jssecacerts /opt/jdk1.8.0_92/jre/lib/security/
+
+ /scanner -h 192.168.2.16 -p 8443 -s https -u sysadmin -w blackduck -i alpine:latest
+
+doesn't contain CN or DNS subjectAlt

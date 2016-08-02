@@ -35,7 +35,8 @@ func main() {
 
     //conn, err := tls.Dial("tcp", "127.0.0.1:8000", conf)
     //conn, err := tls.Dial("tcp", "eng-hub.blackducksoftware.com:443", conf)
-    conn, err := tls.Dial("tcp", "192.168.2.14:8443", conf)
+    //conn, err := tls.Dial("tcp", "updates.suite.blackducksoftware.com:443", conf)
+    conn, err := tls.Dial("tcp", "192.168.2.16:8443", conf)
     if err != nil {
         log.Println(err)
         return
@@ -57,7 +58,15 @@ func main() {
 //    	fmt.Printf("pemBlock : \n%v\n", pemBlock)
     	
     	//pem.Encode(os.Stdout, []byte(cert)) 
-    	cert.IsCA
+    	if cert.IsCA {
+    		fmt.Println("signed certificate")
+    	}else{
+    		fmt.Println("Self signed certificate")
+    		fmt.Printf("Common Name : %s\n", cert.Subject.CommonName)
+    	}
+    	fmt.Printf("Raw subject : %v\n\n", cert.RawSubject)
+    	fmt.Printf("Certificate subject : %v\n\n", cert.Subject)
+    	fmt.Printf("Certificate issuer  : %v\n\n", cert.Issuer)
     	   	
     	
     }

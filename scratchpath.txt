@@ -31,4 +31,23 @@ keytool -import -alias blackduck -keystore jssecacerts -trustcacerts -file prr.c
 
  /scanner -h 192.168.2.16 -p 8443 -s https -u sysadmin -w blackduck -i alpine:latest
 
-doesn't contain CN or DNS subjectAlt
+# check with a ping if the host name in the certificate is valid from
+# Read the CN from the certificate and try to ping it.
+
+Questions:
+1. How can you determine if it's a self signed certificate?
+When certificate is self-signed, then issuer and subject field contains the same value. Also, there will be only this one certificate in the certificate path.
+if cert.IsCA {
+    		fmt.Println("signed certificate")
+    	}else{
+    		fmt.Println("Self signed certificate")
+    		fmt.Printf("Common Name : %s\n", cert.Subject.CommonName)
+    	}
+
+And common name should be used to reach the hub server and should be pingable from the container.
+hmm that won't work look at this
+subject=/C=US/ST=Massachusetts/L=Burlington/O=Black Duck Software, Inc./CN=*.blackducksoftware.com
+Could rely on the error message of the scanner.
+Problem is you first configure and then when you start the scanner you find out it's not working.
+2. What if the "Common Name" is not pingable , should there be an option during configuration to give a ip address and change the host file?
+But the hosts file will be in the image so in order for this to work there has to be more in the config container.

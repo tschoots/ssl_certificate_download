@@ -1,0 +1,16 @@
+Product Protex; Code Center; Export; Code Sight; Black Duck Hub
+Version All, Any, 6.x
+Category Installation; Administration; Registration
+Details 
+After November 7, 2015, here are the current IP addresses for those who hard code the addresses in /etc/hosts or need to set up firewall and other rules.
+
+192.231.134.131 sources.blackducksoftware.com updates.blackducksoftware.com
+192.231.134.131 updates.codecenter.blackducksoftware.com
+192.231.134.131 updates.codesight.blackducksoftware.com
+192.231.134.131 updates.export.blackducksoftware.com
+192.231.134.131 updates.protex.blackducksoftware.com
+192.231.134.131 updates.suite.blackducksoftware.com (Black Duck HUB)
+192.231.134.131 dl.blackducksoftware.com (Code Center Deep License data)
+192.231.134.131 kb.blackducksoftware.com (Hub KB in the Cloud - port 443 only)
+
+Ports 80 and 443 should be accessible.

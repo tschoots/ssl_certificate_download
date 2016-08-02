@@ -1,0 +1,7 @@
+openssl 
+
+apk --update add openssl-dev
+
+
+apk --update add openssl
+openssl s_client -showcerts -connect 192.168.2.14:8443 </dev/null
